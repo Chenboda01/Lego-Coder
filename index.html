@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lego Coder - EV3 Programming Interface</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with logo and status -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <h1>LEGO<span>CODER</span></h1>
+            </div>
+            <div class="status">
+                <div class="status-indicator online"></div>
+                <span>SYSTEM READY</span>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <!-- Blue screen selection panel -->
+            <section class="blue-screen" id="selection-screen">
+                <div class="scanline"></div>
+                <div class="screen-header">
+                    <h2><i class="fas fa-microchip"></i> SOFTWARE SELECTION</h2>
+                    <p class="subtitle">CHOOSE YOUR LEGO PROGRAMMING PLATFORM</p>
+                </div>
+                
+                <div class="selection-grid">
+                    <div class="software-option" data-software="mindstorms">
+                        <div class="option-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>LEGO MINDSTORMS EV3</h3>
+                            <p class="option-desc">Advanced robotics programming with visual block coding and Python support</p>
+                            <ul class="option-features">
+                                <li><i class="fas fa-check-circle"></i> Visual programming</li>
+                                <li><i class="fas fa-check-circle"></i> Python API</li>
+                                <li><i class="fas fa-check-circle"></i> Sensor integration</li>
+                                <li><i class="fas fa-check-circle"></i> Motor control</li>
+                            </ul>
+                        </div>
+                        <button class="select-btn" onclick="selectSoftware('mindstorms')">
+                            SELECT <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="software-option" data-software="spike">
+                        <div class="option-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>LEGO SPIKE PRIME</h3>
+                            <p class="option-desc">Creative coding for education with Scratch-based programming</p>
+                            <ul class="option-features">
+                                <li><i class="fas fa-check-circle"></i> Scratch-based coding</li>
+                                <li><i class="fas fa-check-circle"></i> Color sensor support</li>
+                                <li><i class="fas fa-check-circle"></i> Education focused</li>
+                                <li><i class="fas fa-check-circle"></i> Step-by-step lessons</li>
+                            </ul>
+                        </div>
+                        <button class="select-btn" onclick="selectSoftware('spike')">
+                            SELECT <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="screen-footer">
+                    <p><i class="fas fa-info-circle"></i> Use USB connection to upload programs to your LEGO brick</p>
+                </div>
+            </section>
+            
+            <!-- Coding interface (hidden initially) -->
+            <section class="coding-interface" id="coding-screen" style="display: none;">
+                <div class="coding-header">
+                    <h2><i class="fas fa-code"></i> CODE EDITOR - <span id="selected-software">MINDSTORMS EV3</span></h2>
+                    <button class="back-btn" onclick="goBackToSelection()">
+                        <i class="fas fa-arrow-left"></i> BACK TO SELECTION
+                    </button>
+                </div>
+                
+                <div class="editor-container">
+                    <div class="editor-toolbar">
+                        <div class="toolbar-left">
+                            <button class="toolbar-btn"><i class="fas fa-play"></i> Run</button>
+                            <button class="toolbar-btn"><i class="fas fa-save"></i> Save</button>
+                            <button class="toolbar-btn"><i class="fas fa-folder-open"></i> Open</button>
+                        </div>
+                        <div class="toolbar-right">
+                            <span class="language-label">Block Coding</span>
+                            <div class="language-switch">
+                                <button class="lang-btn active">Blocks</button>
+                                <button class="lang-btn">Python</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-area">
+                        <div class="block-palette">
+                            <h4><i class="fas fa-shapes"></i> BLOCKS</h4>
+                            <div class="block-category">
+                                <h5>Motion</h5>
+                                <div class="block" draggable="true">Move Forward</div>
+                                <div class="block" draggable="true">Turn Right</div>
+                                <div class="block" draggable="true">Turn Left</div>
+                            </div>
+                            <div class="block-category">
+                                <h5>Sensors</h5>
+                                <div class="block" draggable="true">Wait for Touch</div>
+                                <div class="block" draggable="true">Detect Color</div>
+                                <div class="block" draggable="true">Measure Distance</div>
+                            </div>
+                            <div class="block-category">
+                                <h5>Control</h5>
+                                <div class="block" draggable="true">Repeat 10x</div>
+                                <div class="block" draggable="true">If-Then</div>
+                                <div class="block" draggable="true">Wait 1 Second</div>
+                            </div>
+                        </div>
+                        
+                        <div class="workspace">
+                            <h4><i class="fas fa-th-large"></i> WORKSPACE</h4>
+                            <div class="workspace-area" id="workspace">
+                                <p class="placeholder">Drag blocks here to build your program</p>
+                            </div>
+                            <div class="workspace-actions">
+                                <button class="action-btn" onclick="simulateUpload()">
+                                    <i class="fas fa-upload"></i> UPLOAD TO BRICK
+                                </button>
+                                <button class="action-btn" onclick="clearWorkspace()">
+                                    <i class="fas fa-trash"></i> CLEAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="output-console">
+                    <h4><i class="fas fa-terminal"></i> OUTPUT</h4>
+                    <div class="console-content">
+                        <p>> System ready. Select blocks to create program.</p>
+                        <p>> Drag and drop blocks to workspace.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- USB Connection Screen (hidden initially) -->
+            <section class="usb-interface" id="usb-screen" style="display: none;">
+                <div class="usb-header">
+                    <h2><i class="fas fa-usb"></i> USB CONNECTION</h2>
+                    <button class="back-btn" onclick="goBackToCoding()">
+                        <i class="fas fa-arrow-left"></i> BACK TO EDITOR
+                    </button>
+                </div>
+                
+                <div class="usb-content">
+                    <div class="usb-status">
+                        <div class="usb-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="usb-instructions">
+                            <h3>Connect Your EV3 Brick</h3>
+                            <ol>
+                                <li>Connect USB cable from computer to EV3 brick</li>
+                                <li>Turn on the EV3 brick</li>
+                                <li>Wait for connection confirmation</li>
+                                <li>Select program file to upload</li>
+                            </ol>
+                            
+                            <div class="connection-status">
+                                <div class="status-indicator offline" id="usb-status-indicator"></div>
+                                <span id="usb-status-text">Disconnected - Please connect USB cable</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-section">
+                        <h3><i class="fas fa-file-upload"></i> UPLOAD PROGRAM</h3>
+                        <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select program file or drag and drop</p>
+                            <p class="file-format">Supported formats: .ev3, .py, .llsp</p>
+                        </div>
+                        <input type="file" id="file-input" accept=".ev3,.py,.llsp" style="display: none;">
+                        
+                        <div class="upload-progress" id="upload-progress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <span id="progress-text">0%</span>
+                        </div>
+                        
+                        <button class="upload-btn" id="upload-btn" onclick="startUpload()" disabled>
+                            <i class="fas fa-upload"></i> UPLOAD TO BRICK
+                        </button>
+                    </div>
+                    
+                    <div class="brick-preview">
+                        <h3><i class="fas fa-robot"></i> BRICK PREVIEW</h3>
+                        <div class="brick-display">
+                            <div class="brick-screen">
+                                <div class="brick-screen-content">
+                                    <p>LEGO</p>
+                                    <p>MINDSTORMS</p>
+                                    <p>EV3</p>
+                                    <p class="brick-status" id="brick-status">Ready</p>
+                                </div>
+                            </div>
+                            <div class="brick-info">
+                                <p><i class="fas fa-microchip"></i> ARM9 Processor</p>
+                                <p><i class="fas fa-memory"></i> 64 MB RAM</p>
+                                <p><i class="fas fa-sd-card"></i> 16 GB Storage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer with instructions -->
+        <footer class="footer">
+            <div class="footer-left">
+                <p><i class="fas fa-keyboard"></i> Use drag and drop to build programs</p>
+            </div>
+            <div class="footer-center">
+                <p>LEGO® MINDSTORMS® EV3 | SPIKE™ PRIME</p>
+            </div>
+            <div class="footer-right">
+                <p>v2.0.1 | <span id="connection-status">Online</span></p>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
