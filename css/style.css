@@ -498,6 +498,86 @@ body {
     box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
 }
 
+.python-interface {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+}
+
+.python-editor {
+    flex: 3;
+    background-color: rgba(0, 20, 40, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.python-help {
+    flex: 1;
+    background-color: rgba(0, 20, 40, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--panel-border);
+}
+
+.python-editor h4, .python-help h4 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+    color: var(--blue-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.python-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.python-code-area {
+    width: 100%;
+    height: 300px;
+    background-color: rgba(0, 10, 25, 0.9);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 15px;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    margin-bottom: 20px;
+}
+
+.python-code-area:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+}
+
+.python-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.help-content {
+    background-color: rgba(0, 10, 25, 0.8);
+    border-radius: 6px;
+    padding: 15px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.help-content p {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.help-content strong {
+    color: var(--text-primary);
+}
+
 .output-console {
     background-color: rgba(0, 10, 25, 0.9);
     border: 1px solid var(--panel-border);
@@ -589,7 +669,7 @@ body {
     gap: 10px;
 }
 
-.file-upload-area {
+.file-upload-area, .code-generation-area {
     background-color: rgba(0, 10, 25, 0.8);
     border: 2px dashed var(--panel-border);
     border-radius: 8px;
@@ -600,21 +680,30 @@ body {
     margin-bottom: 20px;
 }
 
-.file-upload-area:hover {
+.file-upload-area:hover, .code-generation-area:hover {
     border-color: var(--primary-blue);
     background-color: rgba(0, 102, 255, 0.1);
 }
 
-.file-upload-area i {
+.file-upload-area i, .code-generation-area i {
     font-size: 3rem;
     color: var(--primary-blue);
     margin-bottom: 15px;
 }
 
-.file-format {
+.file-format, .code-format {
     color: var(--text-secondary);
     font-size: 0.9rem;
     margin-top: 10px;
+}
+
+.upload-btn.secondary {
+    background: linear-gradient(90deg, var(--blue-dark), var(--primary-blue));
+    margin-top: 10px;
+}
+
+.upload-btn.secondary:hover {
+    background: linear-gradient(90deg, var(--primary-blue), var(--blue-light));
 }
 
 .upload-progress {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lego Coder - EV3 Programming Interface</title>
+    <title>Lego Coder - LEGO Programming Interface</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -103,40 +103,78 @@
                     </div>
                     
                     <div class="editor-area">
-                        <div class="block-palette">
-                            <h4><i class="fas fa-shapes"></i> BLOCKS</h4>
-                            <div class="block-category">
-                                <h5>Motion</h5>
-                                <div class="block" draggable="true">Move Forward</div>
-                                <div class="block" draggable="true">Turn Right</div>
-                                <div class="block" draggable="true">Turn Left</div>
+                        <div class="block-interface" id="block-interface">
+                            <div class="block-palette">
+                                <h4><i class="fas fa-shapes"></i> BLOCKS</h4>
+                                <div class="block-category">
+                                    <h5>Motion</h5>
+                                    <div class="block" draggable="true">Move Forward</div>
+                                    <div class="block" draggable="true">Turn Right</div>
+                                    <div class="block" draggable="true">Turn Left</div>
+                                </div>
+                                <div class="block-category">
+                                    <h5>Sensors</h5>
+                                    <div class="block" draggable="true">Wait for Touch</div>
+                                    <div class="block" draggable="true">Detect Color</div>
+                                    <div class="block" draggable="true">Measure Distance</div>
+                                </div>
+                                <div class="block-category">
+                                    <h5>Control</h5>
+                                    <div class="block" draggable="true">Repeat 10x</div>
+                                    <div class="block" draggable="true">If-Then</div>
+                                    <div class="block" draggable="true">Wait 1 Second</div>
+                                </div>
                             </div>
-                            <div class="block-category">
-                                <h5>Sensors</h5>
-                                <div class="block" draggable="true">Wait for Touch</div>
-                                <div class="block" draggable="true">Detect Color</div>
-                                <div class="block" draggable="true">Measure Distance</div>
-                            </div>
-                            <div class="block-category">
-                                <h5>Control</h5>
-                                <div class="block" draggable="true">Repeat 10x</div>
-                                <div class="block" draggable="true">If-Then</div>
-                                <div class="block" draggable="true">Wait 1 Second</div>
+                            
+                            <div class="workspace">
+                                <h4><i class="fas fa-th-large"></i> WORKSPACE</h4>
+                                <div class="workspace-area" id="workspace">
+                                    <p class="placeholder">Drag blocks here to build your program</p>
+                                </div>
+                                <div class="workspace-actions">
+                                    <button class="action-btn" onclick="generateCode()">
+                                        <i class="fas fa-code"></i> GENERATE CODE
+                                    </button>
+                                    <button class="action-btn" onclick="clearWorkspace()">
+                                        <i class="fas fa-trash"></i> CLEAR
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="workspace">
-                            <h4><i class="fas fa-th-large"></i> WORKSPACE</h4>
-                            <div class="workspace-area" id="workspace">
-                                <p class="placeholder">Drag blocks here to build your program</p>
+                        <div class="python-interface" id="python-interface" style="display: none;">
+                            <div class="python-editor">
+                                <h4><i class="fab fa-python"></i> PYTHON EDITOR</h4>
+                                <div class="python-toolbar">
+                                    <button class="toolbar-btn" data-action="run-python"><i class="fas fa-play"></i> Run Code</button>
+                                    <button class="toolbar-btn" data-action="save-python"><i class="fas fa-save"></i> Save</button>
+                                    <button class="toolbar-btn" data-action="reset-python"><i class="fas fa-redo"></i> Reset</button>
+                                </div>
+                                <textarea id="python-code" class="python-code-area" placeholder="# Write your Python code here">from spike import Motor, ColorSensor
+import time
+
+motor = Motor('A')
+color_sensor = ColorSensor('B')
+
+motor.run_for_degrees(360)
+time.sleep(1)</textarea>
+                                <div class="python-actions">
+                                    <button class="action-btn" onclick="generatePythonCode()">
+                                        <i class="fas fa-code"></i> GENERATE FOR DEVICE
+                                    </button>
+                                    <button class="action-btn" onclick="clearPythonCode()">
+                                        <i class="fas fa-trash"></i> CLEAR CODE
+                                    </button>
+                                </div>
                             </div>
-                            <div class="workspace-actions">
-                                <button class="action-btn" onclick="simulateUpload()">
-                                    <i class="fas fa-upload"></i> UPLOAD TO BRICK
-                                </button>
-                                <button class="action-btn" onclick="clearWorkspace()">
-                                    <i class="fas fa-trash"></i> CLEAR
-                                </button>
+                            <div class="python-help">
+                                <h4><i class="fas fa-question-circle"></i> QUICK REFERENCE</h4>
+                                <div class="help-content">
+                                    <p><strong>Motor control:</strong> motor.run_for_degrees(360)</p>
+                                    <p><strong>Sensor reading:</strong> color_sensor.get_color()</p>
+                                    <p><strong>Loops:</strong> for i in range(10):</p>
+                                    <p><strong>Conditionals:</strong> if color == 'red':</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -166,12 +204,12 @@
                             <i class="fas fa-plug"></i>
                         </div>
                         <div class="usb-instructions">
-                            <h3>Connect Your EV3 Brick</h3>
+                            <h3 id="hardware-connect-title">Connect Your LEGO Device</h3>
                             <ol>
-                                <li>Connect USB cable from computer to EV3 brick</li>
-                                <li>Turn on the EV3 brick</li>
+                                <li id="hardware-connect-step1">Connect USB cable from computer to LEGO device</li>
+                                <li id="hardware-connect-step2">Turn on the LEGO device</li>
                                 <li>Wait for connection confirmation</li>
-                                <li>Select program file to upload</li>
+                                <li id="hardware-connect-step4">Generate program code for your device</li>
                             </ol>
                             
                             <div class="connection-status">
@@ -182,13 +220,12 @@
                     </div>
                     
                     <div class="upload-section">
-                        <h3><i class="fas fa-file-upload"></i> UPLOAD PROGRAM</h3>
-                        <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select program file or drag and drop</p>
-                            <p class="file-format">Supported formats: .ev3, .py, .llsp</p>
+                        <h3><i class="fas fa-file-code"></i> GENERATE PROGRAM</h3>
+                        <div class="code-generation-area" id="code-generation-area">
+                            <i class="fas fa-code"></i>
+                            <p>Your program code will be generated here</p>
+                            <p class="code-format" id="code-format-label">Block code format</p>
                         </div>
-                        <input type="file" id="file-input" accept=".ev3,.py,.llsp" style="display: none;">
                         
                         <div class="upload-progress" id="upload-progress" style="display: none;">
                             <div class="progress-bar">
@@ -197,8 +234,11 @@
                             <span id="progress-text">0%</span>
                         </div>
                         
-                        <button class="upload-btn" id="upload-btn" onclick="startUpload()" disabled>
-                            <i class="fas fa-upload"></i> UPLOAD TO BRICK
+                        <button class="upload-btn" id="generate-btn" onclick="generateCode()">
+                            <i class="fas fa-cogs"></i> GENERATE CODE
+                        </button>
+                        <button class="upload-btn secondary" id="download-btn" onclick="downloadCode()" style="display: none; margin-top: 10px;">
+                            <i class="fas fa-download"></i> DOWNLOAD CODE
                         </button>
                     </div>
                     
@@ -207,9 +247,9 @@
                         <div class="brick-display">
                             <div class="brick-screen">
                                 <div class="brick-screen-content">
-                                    <p>LEGO</p>
-                                    <p>MINDSTORMS</p>
-                                    <p>EV3</p>
+                                    <p id="hardware-brand-line1">LEGO</p>
+                                    <p id="hardware-brand-line2">MINDSTORMS</p>
+                                    <p id="hardware-brand-line3">EV3</p>
                                     <p class="brick-status" id="brick-status">Ready</p>
                                 </div>
                             </div>
