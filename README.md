@@ -1,1 +1,52 @@
-This is a virtual website for a new style for LEGO Mindstorms EV3. It is a work in progress, and I will be adding more content as I go along. The website is built using HTML, CSS, and JavaScript, and it is hosted on GitHub Pages. First when we open the page there will be a high tech blue screen that lets you choose if you want to use LEGO Mindstorms or LEGO Spike prime. Next, After we choose what software you are going to do you can code the stuff you want. After you do the coding it will ask you to connect a USB port to the EV3 brick. Once you connect the USB port it will ask you to select a code file to upload to you brick. Once you connected it you will see it on you brick. Once you run it, it will do the same thing as the code you uploaded. This is an easier way to code for the EV3 brick, and it is also a lot more fun to use. This website is accessable at https://chenboda01.github.io/Lego-Coder/
+# Lego Coder - Virtual Programming Interface for LEGO Robotics
+
+This is a virtual website for programming LEGO Mindstorms EV3 and LEGO SPIKE Prime robots. The website provides a high-tech blue screen interface where you can choose your robotics platform, create programs using block coding or Python, and generate downloadable code for your LEGO device.
+
+## Features
+
+- **Software Selection**: Choose between LEGO Mindstorms EV3 or LEGO SPIKE Prime
+- **Dual Coding Modes**: 
+  - Visual block coding with drag-and-drop interface
+  - Python editor with syntax examples and quick reference
+- **Hardware-Aware Interface**: Automatically adjusts instructions and references for EV3 brick or SPIKE Prime Hub
+- **Code Generation**: Convert your block programs or Python code into downloadable `.py` files
+- **USB Connection Simulation**: Simulated USB connection and device detection
+- **Live Console Output**: Real-time feedback and program execution simulation
+
+## How It Works
+
+1. **Select Your Platform**: Choose LEGO Mindstorms EV3 or LEGO SPIKE Prime
+2. **Create Your Program**: Use either block coding (drag and drop) or write Python code directly
+3. **Generate Code**: Click "Generate Code" to convert your program into executable Python code
+4. **Connect Your Device**: Follow on-screen instructions to connect your LEGO device via USB
+5. **Download & Run**: Download the generated Python file and transfer it to your LEGO device to run your program
+
+## Key Improvements
+
+- **Hardware-Specific References**: The interface correctly references "EV3 brick" for Mindstorms and "SPIKE Prime Hub" for SPIKE Prime
+- **Code Generation (Not File Upload)**: Instead of uploading files, the website generates Python code that you can download and transfer
+- **Separate Python Editor**: Python coding mode is completely separate from block coding, with its own editor and tools
+
+## Technology
+
+- Built with HTML5, CSS3, and vanilla JavaScript
+- Responsive design with futuristic blue tech theme
+- Drag-and-drop API for block programming
+- Blob API for code download functionality
+- Hosted on GitHub Pages
+
+## Live Website
+
+Visit the live website at: https://chenboda01.github.io/Lego-Coder/
+
+## Development
+
+This is a work in progress. Future enhancements may include:
+- More block types and categories
+- Syntax highlighting for Python editor
+- Program saving and loading
+- Simulated robot preview
+
+## License
+
+LEGO® is a trademark of the LEGO Group. This project is not affiliated with or endorsed by the LEGO Group.
